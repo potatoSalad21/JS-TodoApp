@@ -1,21 +1,17 @@
 import { useState } from 'react';
+import NewTodoForm from './NewTodoForm.jsx';
 import './style.css';
 
 export default function App() {
-  const [newItem, setNewItem] = useState("");
   const [todos, setTodos] = useState([]);
 
-  function handleSubmit(e) {
-    e.preventDefault();
-
+  function addTodo(title) {
     setTodos((currentTodoList) => {
       return [
         ...currentTodoList,
-        { id: crypto.randomUUID(), title: newItem, complete: false },
+        { id: crypto.randomUUID(), title, complete: false },
       ];
     });
-
-    setNewItem("");
   }
 
   function toggleTodo(id, complete) {
@@ -40,16 +36,7 @@ export default function App() {
       <>
         <h1>Todo Website</h1>
 
-        <form onSubmit={handleSubmit}>
-          <label htmlFor="item">New Todo</label>
-          <input 
-            type="text"
-            id="item"
-            value={newItem}
-            onChange={e => setNewItem(e.target.value)}
-          />
-          <button className="btn" type="submit">Add</button>
-        </form>
+        <NewTodoForm onSubmit={addTodo} />
 
         <section className="itemSection">
           <h2 className="header">Todo List:</h2>
