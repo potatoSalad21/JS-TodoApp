@@ -18,11 +18,11 @@ export default function App() {
     setNewItem("");
   }
 
-  function toggleTodo(id, completed) {
+  function toggleTodo(id, complete) {
     setTodos(currentTodoList => {
       return currentTodoList.map(todo => {
         if (todo.id === id) {
-          return { ...todo, completed };
+          return { ...todo, complete };
         }
 
         return todo;
@@ -48,13 +48,14 @@ export default function App() {
             value={newItem}
             onChange={e => setNewItem(e.target.value)}
           />
-          <button type="submit">Add</button>
+          <button className="btn" type="submit">Add</button>
         </form>
 
-        <section>
-          <h2>Todo List:</h2>
+        <section className="itemSection">
+          <h2 className="header">Todo List:</h2>
 
           <ul className="todoList">
+            {todos.length === 0 && "The list is empty!"}
             {todos.map(todo => {
               return (
                 <li key={todo.id}>
